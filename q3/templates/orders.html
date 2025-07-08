@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/medicines">Medicines</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/prescriptions">Prescriptions</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1>Order History</h1>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Active Orders</h3>
+                    <div id="activeOrders">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Quick Actions</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="window.location.href='/medicines'">
+                            Order Again
+                        </button>
+                        <button class="btn btn-emergency" onclick="handleEmergencyDelivery()">
+                            Emergency Delivery
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">All Orders</h3>
+                <div id="ordersList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Order Details</h2>
+            <div id="orderDetails"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

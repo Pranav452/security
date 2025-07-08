@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed Admin</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/medicines">Medicines</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/prescriptions">Prescriptions</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/admin">Admin</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            
+            <div class="grid grid-4">
+                <div class="card">
+                    <h3 class="card-title">Total Orders</h3>
+                    <p id="totalOrders">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Active Users</h3>
+                    <p id="activeUsers">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Total Medicines</h3>
+                    <p id="totalMedicines">Loading...</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Pending Prescriptions</h3>
+                    <p id="pendingPrescriptions">Loading...</p>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Medicine Management</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="showAddMedicineModal()">
+                            Add Medicine
+                        </button>
+                        <button class="btn btn-secondary" onclick="manageMedicines()">
+                            Manage Medicines
+                        </button>
+                        <button class="btn btn-secondary" onclick="manageCategories()">
+                            Manage Categories
+                        </button>
+                        <button class="btn btn-warning" onclick="checkStock()">
+                            Check Stock
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Order Management</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="viewPendingOrders()">
+                            Pending Orders
+                        </button>
+                        <button class="btn btn-secondary" onclick="viewAllOrders()">
+                            All Orders
+                        </button>
+                        <button class="btn btn-emergency" onclick="viewEmergencyOrders()">
+                            Emergency Orders
+                        </button>
+                        <button class="btn btn-secondary" onclick="deliveryManagement()">
+                            Delivery Partners
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">User Management</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="viewUsers()">
+                            View Users
+                        </button>
+                        <button class="btn btn-secondary" onclick="viewPharmacists()">
+                            Pharmacists
+                        </button>
+                        <button class="btn btn-secondary" onclick="viewDeliveryPartners()">
+                            Delivery Partners
+                        </button>
+                        <button class="btn btn-warning" onclick="suspendedUsers()">
+                            Suspended Users
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Prescription Management</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="pendingPrescriptions()">
+                            Pending Verification
+                        </button>
+                        <button class="btn btn-secondary" onclick="verifiedPrescriptions()">
+                            Verified Prescriptions
+                        </button>
+                        <button class="btn btn-warning" onclick="rejectedPrescriptions()">
+                            Rejected Prescriptions
+                        </button>
+                        <button class="btn btn-secondary" onclick="prescriptionReports()">
+                            Reports
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">System Reports</h3>
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h4>Sales Report</h4>
+                        <p>Daily sales: <span id="dailySales">$0.00</span></p>
+                        <p>Monthly sales: <span id="monthlySales">$0.00</span></p>
+                        <button class="btn btn-secondary" onclick="generateSalesReport()">
+                            Generate Report
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h4>Inventory Report</h4>
+                        <p>Low stock items: <span id="lowStockCount">0</span></p>
+                        <p>Out of stock: <span id="outOfStockCount">0</span></p>
+                        <button class="btn btn-secondary" onclick="generateInventoryReport()">
+                            Generate Report
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h4>User Activity</h4>
+                        <p>Active today: <span id="activeToday">0</span></p>
+                        <p>New registrations: <span id="newRegistrations">0</span></p>
+                        <button class="btn btn-secondary" onclick="generateUserReport()">
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Medicine Modal -->
+    <div id="addMedicineModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddMedicineModal()">&times;</span>
+            <h2>Add New Medicine</h2>
+            <form id="addMedicineForm">
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="medicine_name" class="form-label">Medicine Name</label>
+                        <input type="text" id="medicine_name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="generic_name" class="form-label">Generic Name</label>
+                        <input type="text" id="generic_name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand_name" class="form-label">Brand Name</label>
+                        <input type="text" id="brand_name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select id="category_id" class="form-select" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" id="price" class="form-input" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock_quantity" class="form-label">Stock Quantity</label>
+                        <input type="number" id="stock_quantity" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dosage" class="form-label">Dosage</label>
+                        <input type="text" id="dosage" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form" class="form-label">Form</label>
+                        <input type="text" id="form" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-textarea" rows="3" required></textarea>
+                </div>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="prescription_required"> Prescription Required
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="is_emergency_available"> Emergency Available
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Medicine</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        // Admin functions
+        function showAddMedicineModal() {
+            document.getElementById('addMedicineModal').style.display = 'block';
+            loadCategoriesForForm();
+        }
+
+        function closeAddMedicineModal() {
+            document.getElementById('addMedicineModal').style.display = 'none';
+        }
+
+        async function loadCategoriesForForm() {
+            try {
+                const response = await apiRequest('/categories/');
+                if (response.ok) {
+                    const categories = await response.json();
+                    const select = document.getElementById('category_id');
+                    select.innerHTML = '<option value="">Select Category</option>';
+                    categories.forEach(category => {
+                        select.innerHTML += `<option value="${category.id}">${category.name}</option>`;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Handle add medicine form
+        document.getElementById('addMedicineForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const medicineData = {
+                name: document.getElementById('medicine_name').value,
+                generic_name: document.getElementById('generic_name').value,
+                brand_name: document.getElementById('brand_name').value,
+                category_id: parseInt(document.getElementById('category_id').value),
+                price: parseFloat(document.getElementById('price').value),
+                stock_quantity: parseInt(document.getElementById('stock_quantity').value),
+                dosage: document.getElementById('dosage').value,
+                form: document.getElementById('form').value,
+                description: document.getElementById('description').value,
+                prescription_required: document.getElementById('prescription_required').checked,
+                is_emergency_available: document.getElementById('is_emergency_available').checked
+            };
+            
+            try {
+                const response = await apiRequest('/medicines/', {
+                    method: 'POST',
+                    body: JSON.stringify(medicineData)
+                });
+                
+                if (response.ok) {
+                    showAlert('Medicine added successfully!', 'success');
+                    closeAddMedicineModal();
+                    loadAdminStats();
+                } else {
+                    const error = await response.json();
+                    showAlert(error.detail || 'Error adding medicine', 'error');
+                }
+            } catch (error) {
+                showAlert('Network error', 'error');
+            }
+        });
+
+        // Admin action functions
+        function manageMedicines() {
+            showAlert('Medicine management functionality to be implemented', 'info');
+        }
+
+        function manageCategories() {
+            showAlert('Category management functionality to be implemented', 'info');
+        }
+
+        function checkStock() {
+            showAlert('Stock checking functionality to be implemented', 'info');
+        }
+
+        function viewPendingOrders() {
+            showAlert('Pending orders view to be implemented', 'info');
+        }
+
+        function viewAllOrders() {
+            showAlert('All orders view to be implemented', 'info');
+        }
+
+        function viewEmergencyOrders() {
+            showAlert('Emergency orders view to be implemented', 'info');
+        }
+
+        function deliveryManagement() {
+            showAlert('Delivery management to be implemented', 'info');
+        }
+
+        function viewUsers() {
+            showAlert('User management to be implemented', 'info');
+        }
+
+        function viewPharmacists() {
+            showAlert('Pharmacist management to be implemented', 'info');
+        }
+
+        function viewDeliveryPartners() {
+            showAlert('Delivery partner management to be implemented', 'info');
+        }
+
+        function suspendedUsers() {
+            showAlert('Suspended users management to be implemented', 'info');
+        }
+
+        function pendingPrescriptions() {
+            showAlert('Pending prescriptions to be implemented', 'info');
+        }
+
+        function verifiedPrescriptions() {
+            showAlert('Verified prescriptions to be implemented', 'info');
+        }
+
+        function rejectedPrescriptions() {
+            showAlert('Rejected prescriptions to be implemented', 'info');
+        }
+
+        function prescriptionReports() {
+            showAlert('Prescription reports to be implemented', 'info');
+        }
+
+        function generateSalesReport() {
+            showAlert('Sales report generation to be implemented', 'info');
+        }
+
+        function generateInventoryReport() {
+            showAlert('Inventory report generation to be implemented', 'info');
+        }
+
+        function generateUserReport() {
+            showAlert('User report generation to be implemented', 'info');
+        }
+
+        // Load admin statistics
+        async function loadAdminStats() {
+            // Mock data for now
+            document.getElementById('totalOrders').textContent = '1,234';
+            document.getElementById('activeUsers').textContent = '567';
+            document.getElementById('totalMedicines').textContent = '89';
+            document.getElementById('pendingPrescriptions').textContent = '12';
+            document.getElementById('dailySales').textContent = '$2,345.67';
+            document.getElementById('monthlySales').textContent = '$45,678.90';
+            document.getElementById('lowStockCount').textContent = '5';
+            document.getElementById('outOfStockCount').textContent = '2';
+            document.getElementById('activeToday').textContent = '123';
+            document.getElementById('newRegistrations').textContent = '8';
+        }
+
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', loadAdminStats);
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addMedicineModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

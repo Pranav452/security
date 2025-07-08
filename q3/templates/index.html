@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMed - 10 Minute Medicine Delivery</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/medicines">Browse Medicines</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h1>Medicines Delivered in 10 Minutes</h1>
+                <p>Quick, reliable, and safe medicine delivery right to your doorstep</p>
+                <div>
+                    <a href="/medicines" class="btn btn-primary">Browse Medicines</a>
+                    <a href="/register" class="btn btn-secondary">Get Started</a>
+                </div>
+            </section>
+
+            <section class="emergency-section">
+                <h2>Emergency Delivery</h2>
+                <p>Need medicines urgently? We deliver critical medicines in 10 minutes!</p>
+                <button class="btn btn-emergency" onclick="handleEmergencyDelivery()">
+                    Request Emergency Delivery
+                </button>
+            </section>
+
+            <section class="grid grid-3">
+                <div class="card">
+                    <h3 class="card-title">Fast Delivery</h3>
+                    <p>Get your medicines delivered in 10-30 minutes with our quick delivery service.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Verified Medicines</h3>
+                    <p>All medicines are sourced from licensed pharmacies and verified for authenticity.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Prescription Management</h3>
+                    <p>Upload and manage your prescriptions easily. We handle verification for you.</p>
+                </div>
+            </section>
+
+            <section class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">How It Works</h3>
+                    <ol>
+                        <li>Search for your medicines</li>
+                        <li>Add to cart (upload prescription if needed)</li>
+                        <li>Choose delivery address</li>
+                        <li>Track your order in real-time</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Why Choose QuickMed?</h3>
+                    <ul>
+                        <li>Licensed pharmacies</li>
+                        <li>10-minute emergency delivery</li>
+                        <li>Prescription verification</li>
+                        <li>24/7 customer support</li>
+                        <li>Secure payment options</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+                <p>Licensed pharmacy partner | Safe & secure delivery</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html> 

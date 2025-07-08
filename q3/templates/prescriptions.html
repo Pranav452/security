@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescriptions - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/medicines">Medicines</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/prescriptions">Prescriptions</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1>Prescription Management</h1>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Upload Prescription</h3>
+                    <form id="prescriptionUploadForm">
+                        <div class="form-group">
+                            <label for="prescriptionFile" class="form-label">Select Prescription Image</label>
+                            <input type="file" id="prescriptionFile" class="form-input" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor_name" class="form-label">Doctor Name</label>
+                            <input type="text" id="doctor_name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor_license" class="form-label">Doctor License Number</label>
+                            <input type="text" id="doctor_license" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="notes" class="form-label">Additional Notes</label>
+                            <textarea id="notes" class="form-textarea" rows="3" placeholder="Any additional information..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Prescription</button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Prescription Guidelines</h3>
+                    <ul>
+                        <li>Upload clear, high-quality images</li>
+                        <li>Include doctor's name and license</li>
+                        <li>Prescription must be dated within 1 year</li>
+                        <li>Verification typically takes 15-30 minutes</li>
+                        <li>Prescription can be used for 6 months after verification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">My Prescriptions</h3>
+                <div id="prescriptionsList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        document.getElementById('prescriptionUploadForm').addEventListener('submit', handlePrescriptionUpload);
+    </script>
+</body>
+</html> 

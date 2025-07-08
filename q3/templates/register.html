@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/medicines">Browse Medicines</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">Create Your Account</h2>
+                <form id="registerForm">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="full_name" class="form-label">Full Name</label>
+                            <input type="text" id="full_name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" id="confirm_password" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <h3 class="card-title mt-4">Medical Profile</h3>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="number" id="age" class="form-input" min="1" max="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" class="form-select">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="medical_conditions" class="form-label">Medical Conditions</label>
+                            <textarea id="medical_conditions" class="form-textarea" rows="3" placeholder="List any medical conditions"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="allergies" class="form-label">Allergies</label>
+                            <textarea id="allergies" class="form-textarea" rows="3" placeholder="List any allergies"></textarea>
+                        </div>
+                    </div>
+
+                    <h3 class="card-title mt-4">Delivery Address</h3>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" id="address" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" id="city" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" id="state" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip_code" class="form-label">ZIP Code</label>
+                            <input type="text" id="zip_code" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <p class="text-center mt-3">
+                    Already have an account? <a href="/login">Login here</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match', 'error');
+                return;
+            }
+            
+            const userData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                full_name: document.getElementById('full_name').value,
+                phone: document.getElementById('phone').value,
+                password: password,
+                age: parseInt(document.getElementById('age').value) || null,
+                gender: document.getElementById('gender').value || null,
+                medical_conditions: document.getElementById('medical_conditions').value || null,
+                allergies: document.getElementById('allergies').value || null,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip_code: document.getElementById('zip_code').value
+            };
+            
+            await register(userData);
+        });
+    </script>
+</body>
+</html> 

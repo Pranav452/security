@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Medicines - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/medicines">Browse Medicines</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1>Browse Medicines</h1>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search medicines...">
+                <button class="btn btn-primary" onclick="searchMedicines()">Search</button>
+            </div>
+
+            <div class="filters">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                </select>
+                <select id="prescriptionFilter" class="filter-select">
+                    <option value="">All Medicines</option>
+                    <option value="true">Prescription Only</option>
+                    <option value="false">Over-the-Counter</option>
+                </select>
+                <select id="emergencyFilter" class="filter-select">
+                    <option value="">All Medicines</option>
+                    <option value="true">Emergency Available</option>
+                </select>
+                <select id="sortBy" class="filter-select">
+                    <option value="name">Sort by Name</option>
+                    <option value="price">Sort by Price</option>
+                    <option value="stock">Sort by Stock</option>
+                </select>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Categories</h3>
+                    <div id="categoriesList">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Emergency Medicines</h3>
+                    <p>Available for 10-minute emergency delivery</p>
+                    <button class="btn btn-emergency" onclick="handleEmergencyDelivery()">
+                        Emergency Delivery
+                    </button>
+                </div>
+            </div>
+
+            <div id="medicinesList" class="grid grid-3">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMedicines();
+            }
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', searchMedicines);
+        document.getElementById('prescriptionFilter').addEventListener('change', searchMedicines);
+        document.getElementById('emergencyFilter').addEventListener('change', searchMedicines);
+        document.getElementById('sortBy').addEventListener('change', searchMedicines);
+    </script>
+</body>
+</html> 

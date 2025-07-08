@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/medicines">Medicines</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/prescriptions">Prescriptions</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="hero">
+                <h1>Welcome Back!</h1>
+                <p>Your health, delivered fast and safe</p>
+                <div>
+                    <a href="/medicines" class="btn btn-primary">Browse Medicines</a>
+                    <button class="btn btn-emergency" onclick="handleEmergencyDelivery()">
+                        Emergency Delivery
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-4">
+                <div class="card">
+                    <h3 class="card-title">Recent Orders</h3>
+                    <p id="recentOrdersCount">Loading...</p>
+                    <a href="/orders" class="btn btn-secondary">View All Orders</a>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Prescriptions</h3>
+                    <p id="prescriptionsCount">Loading...</p>
+                    <a href="/prescriptions" class="btn btn-secondary">Manage Prescriptions</a>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Cart Items</h3>
+                    <p id="cartItemsCount">Loading...</p>
+                    <a href="/cart" class="btn btn-secondary">View Cart</a>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Profile</h3>
+                    <p>Keep your info updated</p>
+                    <a href="/profile" class="btn btn-secondary">Edit Profile</a>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Recent Orders</h3>
+                    <div id="recentOrdersList">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Quick Actions</h3>
+                    <div class="grid grid-2">
+                        <button class="btn btn-primary" onclick="window.location.href='/medicines'">
+                            Browse Medicines
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.location.href='/prescriptions'">
+                            Upload Prescription
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.location.href='/orders'">
+                            Track Orders
+                        </button>
+                        <button class="btn btn-emergency" onclick="handleEmergencyDelivery()">
+                            Emergency Delivery
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html> 

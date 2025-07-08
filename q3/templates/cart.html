@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - QuickMed</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">QuickMed</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/medicines">Medicines</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/prescriptions">Prescriptions</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Cart Items</h3>
+                    <div id="cartItems">
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="cart-total">
+                        <p><strong>Total: <span id="cartTotal">$0.00</span></strong></p>
+                        <p id="prescriptionWarning" class="text-warning" style="display: none;">
+                            Some items require prescription verification
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Checkout</h3>
+                    <div id="checkoutSection">
+                        <p>Add items to your cart to proceed</p>
+                    </div>
+                    <button id="checkoutButton" class="btn btn-primary" onclick="proceedToCheckout()" disabled>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Need a Prescription?</h3>
+                <p>Upload your prescription to purchase prescription medicines</p>
+                <a href="/prescriptions" class="btn btn-secondary">Upload Prescription</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 QuickMed. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html> 
