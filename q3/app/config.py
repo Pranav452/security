@@ -1,12 +1,13 @@
 from pydantic_settings import BaseSettings
 from typing import Optional
+import os
 
 class Settings(BaseSettings):
     app_name: str = "QuickMed - Medicine Delivery Platform"
     debug: bool = True
     
-    # Database
-    database_url: str = "sqlite:///./quickmed.db"
+    # Database - Use PostgreSQL in production, SQLite in development
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./quickmed.db")
     
     # JWT Settings
     secret_key: str = "your-secret-key-here-change-in-production"
